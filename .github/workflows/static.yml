@@ -37,6 +37,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Generate 404 file
+        run: 'cp ./dist/0rkut/index.html ./dist/0rkut/404.html'
 #      - name: Test
 #        run: npm run test
       - name: Archive build
@@ -68,8 +70,6 @@ jobs:
         with:
           name: deploy_dist_folder
           path: dist/0rkut
-      - name: Generate 404 file
-        run: 'cp ./dist/0rkut/index.html ./dist/0rkut/404.html'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
