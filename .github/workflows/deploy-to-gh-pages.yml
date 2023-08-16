@@ -22,6 +22,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  test:
+    uses: ./.github/workflows/unit.tests
   build:
     name: Build App
     runs-on: ubuntu-latest
@@ -39,8 +41,6 @@ jobs:
         run: npm run build
       - name: Generate 404 file
         run: 'cp ./dist/0rkut/index.html ./dist/0rkut/404.html'
-#      - name: Test
-#        run: npm run test
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v3
