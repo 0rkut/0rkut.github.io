@@ -11,6 +11,14 @@
   gap: 8px;
 }
 
-.flex-grow {
+.grow {
   flex-grow: 1;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
 }
