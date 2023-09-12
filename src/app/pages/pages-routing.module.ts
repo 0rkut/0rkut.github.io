@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppWrapperComponent } from '../components/layout/app-wrapper/app-wrapper.component';
+import { AppWrapperComponent } from '@components/layout/app-wrapper/app-wrapper.component';
 
 const routes: Routes = [
   {
     path: '',
-    data: { showLeft: 'false' },
     component: AppWrapperComponent,
-    loadChildren: () =>
-      import('./public/public-pages.module').then((m) => m.PublicPagesModule),
-  },
-  {
-    path: '',
-    component: AppWrapperComponent,
-    loadChildren: () =>
-      import('./private/private-pages.module').then(
-        (m) => m.PrivatePagesModule,
-      ),
+    data: {
+      hideLeft: true,
+      hideRight: true,
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./public/public-pages.module').then(
+            (m) => m.PublicPagesModule,
+          ),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./private/private-pages.module').then(
+            (m) => m.PrivatePagesModule,
+          ),
+      },
+    ],
   },
 ];
 

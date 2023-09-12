@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
-    "lint": "ng lint"
+    "start": "bun run ng serve",
+    "build": "bun run ng build",
+    "watch": "bun run ng build --watch --configuration development",
+    "test": "bun run ng test",
+    "test:ci": "bun run ng test --watch=false --browsers=ChromeHeadless",
+    "lint": "bun run ng lint"
   },
   "private": true,
   "dependencies": {
