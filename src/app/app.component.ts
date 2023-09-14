@@ -1,19 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SupabaseService } from '@services/supabase/supabase.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = '0rkut';
-
-  session = this.supabase.session;
-
-  constructor(private readonly supabase: SupabaseService) {}
-
-  ngOnInit() {
-    this.supabase.authChanges((_, session) => (this.session = session));
-  }
 }

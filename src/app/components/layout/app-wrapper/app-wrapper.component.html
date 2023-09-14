@@ -1,37 +1,50 @@
 <div class="app-wrapper flex-column">
+  <!-- HEADER -->
   <div class="header">
     <div
-      class="width-control-container flex-row gap-8px space-between align-center"
+      class="width-control-container flex-row gap-8px justify-space-between align-center"
     >
       <a routerLink="/"
         ><h1>{{ appName }}</h1></a
       >
-      <div *ngIf="session; else notLoggedButton">Logged</div>
+      <ng-container *ngIf="user$ | async as user; else notLoggedButton">
+        <div class="flex-row gap-24px">
+          <a [routerLink]="['/account']" routerLinkActive="active-header-link">
+            Account
+          </a>
+          <a [routerLink]="['/logout']">Logout</a>
+        </div>
+      </ng-container>
       <ng-template #notLoggedButton>
-        <div><a [routerLink]="['/login']">Login</a></div>
+        <div><button (click)="goToLogin()">Login</button></div>
       </ng-template>
     </div>
   </div>
-  <div
-    class="content-container grow overflow-auto"
-    *ngIf="user$ | async as user"
-  >
-    <div class="width-control-container flex-row gap-8px overflow-auto">
+
+  <div class="content-container grow overflow-auto">
+    <div
+      class="content-panel width-control-container flex-row gap-8px overflow-auto"
+    >
+      <!-- LEFT PANEL -->
       <div
-        *ngIf="!(routeData$ | async)?.hideLeft"
-        class="left-panel panel-border flex-column gap-8px overflow-auto"
+        *ngIf="!hideLeftPanel"
+        class="panel left-panel panel-border flex-column gap-8px overflow-auto"
       >
-        <img [src]="user.img" alt="" />
+        <a [routerLink]="['/account']">
+          <img [src]="(user$ | async)?.picture" alt="" />
+        </a>
         menu
       </div>
-      <div class="content-panel grow">
-        <div class="panel-border">
-          <router-outlet></router-outlet>
-        </div>
+
+      <!-- MIDLE PANEL -->
+      <div *ngIf="!hideMidlePanel" class="panel midle-panel grow panel-border">
+        <ng-content></ng-content>
       </div>
+
+      <!-- RIGHT PANEL -->
       <div
-        *ngIf="!(routeData$ | async)?.hideRight"
-        class="right-panel flex-column gap-8px overflow-auto"
+        *ngIf="!hideRightPanel"
+        class="panel right-panel flex-column gap-8px overflow-auto"
       >
         <div class="panel-border">
           <h2>My friends</h2>

@@ -2,23 +2,51 @@
   display: flex;
 }
 
-.flex-column {
+.flex-column,
+.flex-column-full {
   display: flex;
   flex-direction: column;
 }
 
-.gap-8px {
-  gap: 8px;
+.flex-column-full {
+  height: 100%;
 }
 
 .grow {
   flex-grow: 1;
 }
 
-.space-between {
+.justify-space-between {
   justify-content: space-between;
+}
+
+.justify-start {
+  justify-content: start;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-start {
+  align-items: start;
+}
+
+.align-end {
+  align-items: end;
 }
 
 .align-center {
   align-items: center;
+}
+
+@for $i from 1 through 100 {
+  $multplication: calc($i * 2);
+  .gap-#{$multplication}px {
+    gap: #{$i}px;
+  }
 }

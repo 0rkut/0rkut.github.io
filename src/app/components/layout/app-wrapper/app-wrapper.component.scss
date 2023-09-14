@@ -14,11 +14,6 @@
   }
 }
 
-.content-container {
-  background-color: #d4e8fc;
-  padding: 16px;
-}
-
 .width-control-container {
   width: 100%;
   max-width: 1240px;
@@ -33,21 +28,30 @@
 
 .left-panel {
   width: 256px;
+  min-width: 256px;
 
   img {
-    max-height: 256px;
-    margin: auto;
     display: block;
+    max-height: 256px;
+    max-width: 256px;
+    margin: 0px auto;
+    border-radius: 4px;
   }
 }
 
 .content-panel {
+  height: 100%;
 }
 
 .right-panel {
   width: 400px;
+  min-width: 400px;
 }
 
 .header a {
   color: white;
+
+  &.active-header-link {
+    color: #e4258b;
+  }
 }

@@ -2,17 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
+  Input,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { SupabaseService } from '@services/supabase/supabase.service';
+import { RouterModule } from '@angular/router';
 import { UserService } from '@services/user/user.service';
-import { Observable } from 'rxjs';
 import { CommunityListComponent } from '../../community/community-list/community-list.component';
 import { FriendListComponent } from '../../friend/friend-list/friend-list.component';
-import { AppWrapperState } from './app-wrapper.types';
-import { routeData } from './router-data.helpers';
 
 @Component({
   selector: 'app-app-wrapper',
@@ -27,36 +23,20 @@ import { routeData } from './router-data.helpers';
   styleUrls: ['./app-wrapper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppWrapperComponent implements OnInit {
+export class AppWrapperComponent {
   private userService = inject(UserService);
 
   appName = '0rkut';
 
   user$ = this.userService.user$;
 
-  session = this.supabase.session;
+  @Input() hideLeftPanel = false;
 
-  routeData$!: Observable<AppWrapperState>;
+  @Input() hideMidlePanel = false;
 
-  constructor(
-    private readonly supabase: SupabaseService,
-    private route: ActivatedRoute,
-  ) {
-    this.connectToUser();
-    this.connectToRouteData();
-  }
+  @Input() hideRightPanel = false;
 
-  ngOnInit() {
-    this.supabase.authChanges((_, session) => (this.session = session));
-  }
-
-  private connectToUser() {
-    this.user$.subscribe((a) => {
-      console.log('USER logged?', a, this.session);
-    });
-  }
-
-  private connectToRouteData() {
-    this.routeData$ = routeData<AppWrapperState>(this.route);
+  goToLogin() {
+    this.userService.goToLogin();
   }
 }

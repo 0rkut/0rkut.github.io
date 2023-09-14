@@ -1,13 +1,21 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Profile, SupabaseService } from '@services/supabase/supabase.service';
-import { AuthSession } from '@supabase/supabase-js';
+import { SupabaseService } from '@services/supabase/supabase.service';
+import { Profile, UserService } from '@services/user/user.service';
+import {
+  Observable,
+  ReplaySubject,
+  catchError,
+  filter,
+  finalize,
+  from,
+  map,
+  of,
+  shareReplay,
+  switchMap,
+  take,
+} from 'rxjs';
 
 @Component({
   selector: 'app-account-page',
@@ -18,11 +26,11 @@ import { AuthSession } from '@supabase/supabase-js';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountPageComponent implements OnInit {
-  loading = false;
-  profile!: Profile;
+  loading$ = new ReplaySubject<boolean>();
 
-  @Input()
-  session!: AuthSession;
+  loadProfile$ = new ReplaySubject<boolean>();
+
+  profile$!: Observable<Profile | null>;
 
   updateProfileForm = this.formBuilder.group({
     username: '',
@@ -31,73 +39,76 @@ export class AccountPageComponent implements OnInit {
   });
 
   constructor(
-    private readonly supabase: SupabaseService,
+    public supabaseService: SupabaseService,
+    public userService: UserService,
     private formBuilder: FormBuilder,
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.getProfile();
-
-    const { username, website, avatar_url } = this.profile;
-    this.updateProfileForm.patchValue({
-      username,
-      website,
-      avatar_url,
-    });
+  ngOnInit() {
+    this.connectToProfileStream();
+    this.loadProfile$.next(true);
   }
 
-  async getProfile() {
-    try {
-      this.loading = true;
-      const { user } = this.session;
-      const {
-        data: profile,
-        error,
-        status,
-      } = await this.supabase.profile(user);
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (profile) {
-        this.profile = profile;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      this.loading = false;
-    }
+  private connectToProfileStream() {
+    this.profile$ = this.loadProfile$.pipe(
+      switchMap(() => this.supabaseService.session$),
+      filter(Boolean),
+      map((session) => session.user),
+      filter(Boolean),
+      switchMap((user) => {
+        this.loading$.next(true);
+        return from(this.userService.profile(user.id)).pipe(
+          map(({ data }) => {
+            const profile = data as Profile;
+            this.updateProfileFormValues(profile);
+            return profile;
+          }),
+          catchError(() => {
+            console.log('error');
+            return of(null);
+          }),
+          finalize(() => {
+            this.loading$.next(false);
+          }),
+        );
+      }),
+      shareReplay(),
+    );
   }
 
-  async updateProfile(): Promise<void> {
-    try {
-      this.loading = true;
-      const { user } = this.session;
+  async updateProfile(profile: Profile) {
+    this.supabaseService.session$
+      .pipe(filter(Boolean), take(1))
+      .subscribe(async (session) => {
+        const { id, email } = session.user;
+        this.loading$.next(true);
+        const username = this.updateProfileForm.value.username as string;
+        const website = this.updateProfileForm.value.website as string;
+        const avatar_url = this.updateProfileForm.value.avatar_url as string;
 
-      const username = this.updateProfileForm.value.username as string;
-      const website = this.updateProfileForm.value.website as string;
-      const avatar_url = this.updateProfileForm.value.avatar_url as string;
+        await this.userService.updateProfile({
+          id,
+          username,
+          website,
+          avatar_url,
+          email: email || '',
+        });
 
-      const { error } = await this.supabase.updateProfile({
-        id: user.id,
+        this.loading$.next(false);
+        this.loadProfile$.next(true);
+      });
+  }
+
+  private updateProfileFormValues(profile: Profile | null) {
+    if (profile) {
+      const { username, website, avatar_url } = profile;
+      this.updateProfileForm.patchValue({
         username,
         website,
         avatar_url,
       });
-      if (error) throw error;
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      this.loading = false;
+    } else {
+      this.updateProfileForm.reset();
     }
-  }
-
-  async signOut() {
-    await this.supabase.signOut();
   }
 }

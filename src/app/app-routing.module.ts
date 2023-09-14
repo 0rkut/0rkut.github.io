@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundPageComponent } from './pages/public/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -7,7 +8,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/pages.module').then((m) => m.PagesModule),
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({
