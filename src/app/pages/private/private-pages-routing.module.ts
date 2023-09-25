@@ -6,6 +6,7 @@ import { UserService } from '@services/user/user.service';
 import { map } from 'rxjs';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { FeedPageComponent } from './feed-page/feed-page.component';
+import { PeoplePageComponent } from './people-page/people-page.component';
 import { ValidateAuthPageComponent } from './validate-auth-page/validate-auth-page.component';
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: '', component: FeedPageComponent },
       { path: 'account', component: AccountPageComponent },
       { path: 'validate-auth', component: ValidateAuthPageComponent },
+      { path: 'people', component: PeoplePageComponent },
     ],
   },
 ];

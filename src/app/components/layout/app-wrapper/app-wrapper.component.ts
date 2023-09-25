@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from '@services/user/user.service';
 import { CommunityListComponent } from '../../community/community-list/community-list.component';
 import { FriendListComponent } from '../../friend/friend-list/friend-list.component';
+import { LeftNavMenuComponent } from '../left-nav-menu/left-nav-menu.component';
 
 @Component({
   selector: 'app-app-wrapper',
@@ -18,6 +19,7 @@ import { FriendListComponent } from '../../friend/friend-list/friend-list.compon
     RouterModule,
     FriendListComponent,
     CommunityListComponent,
+    LeftNavMenuComponent,
   ],
   templateUrl: './app-wrapper.component.html',
   styleUrls: ['./app-wrapper.component.scss'],

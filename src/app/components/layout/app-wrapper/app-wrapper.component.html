@@ -33,7 +33,8 @@
         <a [routerLink]="['/account']">
           <img [src]="(user$ | async)?.picture" alt="" />
         </a>
-        menu
+
+        <app-left-nav-menu></app-left-nav-menu>
       </div>
 
       <!-- MIDLE PANEL -->
