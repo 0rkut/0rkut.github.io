@@ -1,16 +1,16 @@
 <div class="flex-column gap-32px">
   <app-community-form
     [formGroup]="formGroup"
-    (submit)="create()"
+    (submit)="upsert()"
   ></app-community-form>
 
   <div class="flex-row gap-32px justify-end">
     <button
-      (click)="create()"
+      (click)="upsert()"
       class="button primary block"
-      [disabled]="loading$ | async"
+      [disabled]="(saving$ | async) || (loading$ | async)"
     >
-      {{ (loading$ | async) ? "Aguarde..." : "Salvar" }}
+      {{ (saving$ | async) || (loading$ | async) ? "Aguarde..." : "Salvar" }}
     </button>
   </div>
 </div>

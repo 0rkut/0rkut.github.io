@@ -16,6 +16,13 @@
         *ngIf="(userId$ | async) === community.creator"
         >Editar</a
       >
+
+      <button
+        (click)="$event.stopPropagation(); delete()"
+        *ngIf="(userId$ | async) === community.creator"
+      >
+        Apagar
+      </button>
     </div>
   </div>
 </app-card>

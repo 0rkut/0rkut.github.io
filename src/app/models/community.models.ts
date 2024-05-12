@@ -7,4 +7,9 @@ export type Community = {
   creator: string;
 };
 
-export type AddCommunityFormModel = Pick<Community, 'name' | 'image' | 'desc'>;
+export type EditCommunityFormModel = {
+  id?: string;
+  name: string;
+  image: string;
+  desc: string;
+};

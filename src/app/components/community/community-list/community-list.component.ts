@@ -17,7 +17,7 @@ import { CommunityCardComponent } from '../community-card/community-card.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommunityListComponent {
-  communities$ = this.communityService.communities();
+  communities$ = this.communityService.list();
 
   @Output() total = new EventEmitter<number>();
 

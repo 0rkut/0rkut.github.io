@@ -32,7 +32,7 @@ export class UserService {
       if (user) {
         const profile = this.supabaseService.db
           .from('profile')
-          .select(`website, avatar, id, email, name, nick, bio, creator`)
+          .select('*')
           .eq('id', user?.id)
           .single()
           .then((res) => res.data);
