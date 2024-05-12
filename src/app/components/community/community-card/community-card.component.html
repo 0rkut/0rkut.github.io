@@ -1,3 +1,5 @@
 <app-card>
-  <p>community-card works!</p>
+  <a [routerLink]="['/community', community.id]">
+    {{ community.name }}
+  </a>
 </app-card>

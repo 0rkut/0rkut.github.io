@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthPageComponent } from './auth-page/auth-page.component';
+import { CommunityPageComponent } from './community-page/community-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { ValidateAuthPageComponent } from './validate-auth-page/validate-auth-page.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthPageComponent },
   { path: 'validate-auth', component: ValidateAuthPageComponent },
   { path: 'logout', component: LogoutPageComponent },
+  { path: 'community/:id', component: CommunityPageComponent },
 ];
 
 @NgModule({

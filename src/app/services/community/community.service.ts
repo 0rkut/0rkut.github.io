@@ -11,4 +11,8 @@ export class CommunityService {
   insert(data: AddCommunityFormModel) {
     return this.supabaseService.db.from('community').insert(data);
   }
+
+  async comminities() {
+    return (await this.supabaseService.db.from('community').select()).data;
+  }
 }

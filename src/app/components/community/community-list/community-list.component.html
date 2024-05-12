@@ -1,5 +1,6 @@
-<p>community-list works!</p>
-
-<app-list>
-  <app-community-card></app-community-card>
+<app-list *ngIf="communities$ | async as communities">
+  <app-community-card
+    *ngFor="let community of communities"
+    [community]="community"
+  ></app-community-card>
 </app-list>
