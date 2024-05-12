@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { LogoutPageComponent } from './logout-page.component';
 
 describe('LogoutPageComponent', () => {
@@ -8,7 +9,7 @@ describe('LogoutPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LogoutPageComponent]
+      imports: [LogoutPageComponent, RouterModule, RouterModule.forRoot([])],
     });
     fixture = TestBed.createComponent(LogoutPageComponent);
     component = fixture.componentInstance;

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { AppWrapperComponent } from './app-wrapper.component';
 
 describe('AppWrapperComponent', () => {
@@ -8,7 +9,7 @@ describe('AppWrapperComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AppWrapperComponent]
+      imports: [AppWrapperComponent, RouterModule, RouterModule.forRoot([])],
     });
     fixture = TestBed.createComponent(AppWrapperComponent);
     component = fixture.componentInstance;

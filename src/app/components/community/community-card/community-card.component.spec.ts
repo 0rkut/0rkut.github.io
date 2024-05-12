@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { CommunityCardComponent } from './community-card.component';
 
 describe('CommunityCardComponent', () => {
@@ -8,10 +9,13 @@ describe('CommunityCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommunityCardComponent]
+      imports: [CommunityCardComponent, RouterModule, RouterModule.forRoot([])],
     });
     fixture = TestBed.createComponent(CommunityCardComponent);
     component = fixture.componentInstance;
+
+    component.community = {} as any;
+
     fixture.detectChanges();
   });
 

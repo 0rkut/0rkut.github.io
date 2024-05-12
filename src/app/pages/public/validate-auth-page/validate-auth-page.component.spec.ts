@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { ValidateAuthPageComponent } from './validate-auth-page.component';
 
 describe('ValidateAuthPageComponent', () => {
@@ -8,7 +9,11 @@ describe('ValidateAuthPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ValidateAuthPageComponent]
+      imports: [
+        ValidateAuthPageComponent,
+        RouterModule,
+        RouterModule.forRoot([]),
+      ],
     });
     fixture = TestBed.createComponent(ValidateAuthPageComponent);
     component = fixture.componentInstance;
