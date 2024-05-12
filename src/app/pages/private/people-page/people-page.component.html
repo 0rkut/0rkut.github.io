@@ -1,0 +1,48 @@
+<h1>Pessoas</h1>
+
+<table *ngIf="user$ | async as user">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="people$ | async as people">
+    <tr
+      *ngFor="let person of people; trackBy: trackByPersonId"
+      [ngClass]="{
+        'own-profile': person.id === user.id,
+        'connection-profile': (myConnectionIds$ | async)?.includes(person.id),
+        'blocked-profile': (blockedConnectionIds$ | async)?.includes(person.id),
+        'new-profile': (newConnectionIds$ | async)?.includes(person.id)
+      }"
+    >
+      <td>
+        <img [src]="person.avatar" alt="person avatar" class="avatar" />
+      </td>
+      <td>{{ person.username }}</td>
+      <td>{{ person.email }}</td>
+      <td>
+        <ng-container *ngIf="person.id === user.id">
+          <div>YOU</div>
+        </ng-container>
+
+        <ng-container *ngIf="(myConnectionIds$ | async)?.includes(person.id)">
+          <button>Connection</button>
+        </ng-container>
+
+        <ng-container
+          *ngIf="(blockedConnectionIds$ | async)?.includes(person.id)"
+        >
+          <button>Blocked</button>
+        </ng-container>
+
+        <ng-container *ngIf="(newConnectionIds$ | async)?.includes(person.id)">
+          <button>New</button>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
