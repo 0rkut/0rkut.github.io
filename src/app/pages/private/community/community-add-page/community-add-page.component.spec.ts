@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { CommunityAddPageComponent } from './community-add-page.component';
 
 describe('CommunityAddPageComponent', () => {
@@ -8,7 +9,7 @@ describe('CommunityAddPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommunityAddPageComponent]
+      imports: [CommunityAddPageComponent, RouterModule.forRoot([])],
     });
     fixture = TestBed.createComponent(CommunityAddPageComponent);
     component = fixture.componentInstance;
