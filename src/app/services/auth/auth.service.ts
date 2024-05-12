@@ -43,8 +43,8 @@ export class AuthService {
     }
   }
 
-  async signIn(redirectUrl: string) {
-    this.supabaseService.signInWithGoogle({ redirectUrl });
+  async signIn(redirectUrl?: string) {
+    this.supabaseService.signInWithGoogle(redirectUrl);
   }
 
   async signOut() {

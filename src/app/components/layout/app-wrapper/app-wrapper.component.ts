@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommunityListComponent } from '../../community/community-list/community-list.component';
-import { FriendListComponent } from '../../friend/friend-list/friend-list.component';
+import { UserService } from '@services/user/user.service';
 
 @Component({
   selector: 'app-app-wrapper',
   standalone: true,
-  imports: [CommonModule, RouterModule, FriendListComponent, CommunityListComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app-wrapper.component.html',
   styleUrls: ['./app-wrapper.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppWrapperComponent {
+  userService = inject(UserService);
 
+  profile$ = this.userService.profile$;
 }

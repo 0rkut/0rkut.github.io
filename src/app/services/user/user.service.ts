@@ -1,16 +1,9 @@
 import { Location } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Profile } from '@models/profile.models';
 import { SupabaseService } from '@services/supabase/supabase.service';
 import { from, map, of, switchMap } from 'rxjs';
-
-export interface Profile {
-  id: string;
-  email: string;
-  name?: string;
-  website?: string;
-  avatar?: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +26,7 @@ export class UserService {
       if (user) {
         const profile = this.supabaseService.db
           .from('profile')
-          .select(`website, avatar, id, email, name`)
+          .select(`website, avatar, id, email, name, nick`)
           .eq('id', user?.id)
           .single()
           .then((res) => res.data);

@@ -59,7 +59,7 @@ export class SupabaseService {
     });
   }
 
-  signInWithGoogle({ redirectUrl }: { redirectUrl: string }) {
+  signInWithGoogle(redirectUrl?: string) {
     this.db.auth.signInWithOAuth({
       provider: 'google',
       options: {

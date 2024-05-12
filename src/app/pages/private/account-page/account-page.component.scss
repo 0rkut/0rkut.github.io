@@ -1,0 +1,21 @@
+.panel-border {
+  border-radius: 6px;
+  background-color: white;
+  padding: 8px;
+}
+
+.left-panel {
+  width: 256px;
+
+  img {
+    object-fit: cover;
+    max-height: 256px;
+    width: 100%;
+    margin: auto;
+    display: block;
+  }
+}
+
+.right-panel {
+  width: 400px;
+}

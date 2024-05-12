@@ -6,9 +6,10 @@ import {
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Profile } from '@models/profile.models';
 import { AuthService } from '@services/auth/auth.service';
 import { SupabaseService } from '@services/supabase/supabase.service';
-import { Profile, UserService } from '@services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { User } from '@supabase/supabase-js';
 import { firstValueFrom, take } from 'rxjs';
 
@@ -67,6 +68,7 @@ export class ValidateAuthPageComponent implements OnInit {
         website,
         avatar,
         name,
+        nick: email,
       });
     } else {
       return true;

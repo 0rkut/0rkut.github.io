@@ -11,6 +11,10 @@
     background-color: white;
     display: inline-block;
     padding: 0px 8px;
+
+    a {
+      padding: 0;
+    }
   }
 }
 
@@ -23,30 +27,4 @@
   width: 100%;
   max-width: 1240px;
   margin: auto;
-}
-
-.panel-border {
-  border-radius: 6px;
-  background-color: white;
-  padding: 8px;
-}
-
-.left-panel {
-  width: 256px;
-
-  img {
-    max-height: 256px;
-    margin: auto;
-    display: block;
-  }
-}
-
-.content-panel {
-}
-
-.right-panel {
-  width: 400px;
-}
-
-h2 {
 }

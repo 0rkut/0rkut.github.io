@@ -1,28 +1,28 @@
-<form
-  *ngIf="profile$ | async as profile"
-  [formGroup]="updateProfileForm"
-  (ngSubmit)="updateProfile()"
-  class="form-widget flex-column gap-32px"
->
-  <h1>{{ profile.name }}</h1>
-
-  <div>
-    <label for="name">Name</label>
-    <input formControlName="name" id="name" type="text" />
+<div class="flex-row gap-8px overflow-auto">
+  <div class="left-panel panel-border flex-column gap-8px overflow-auto">
+    <img [src]="(profile$ | async)?.avatar" alt="" />
   </div>
 
-  <div>
-    <label for="website">Website</label>
-    <input formControlName="website" id="website" type="url" />
+  <div class="content-panel flex-grow">
+    <div class="panel-border">
+      <app-profile-form
+        [profileForm]="profileForm"
+        [disabled]="(loading$ | async)!"
+        (submit)="updateProfile()"
+      ></app-profile-form>
+    </div>
   </div>
 
-  <div class="flex-row gap-32px justify-end">
-    <button
-      type="submit"
-      class="button primary block"
-      [disabled]="loading$ | async"
-    >
-      {{ (loading$ | async) ? "(loading$ | async) ..." : "Update" }}
-    </button>
+  <div class="right-panel flex-column gap-8px overflow-auto">
+    <div class="panel-border">
+      <h2>My friends</h2>
+      <input type="text" placeholder="Search friends" />
+      <app-friend-list />
+    </div>
+    <div class="panel-border">
+      <h2>My communities</h2>
+      <input type="text" placeholder="Search communities" />
+      <app-community-list />
+    </div>
   </div>
-</form>
+</div>
