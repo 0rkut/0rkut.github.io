@@ -11,6 +11,7 @@
 
     <div class="flex-row gap-8px">
       <a
+        class="button"
         [routerLink]="['/community', 'edit', community.id]"
         (click)="$event.stopPropagation()"
         *ngIf="(userId$ | async) === community.creator"
