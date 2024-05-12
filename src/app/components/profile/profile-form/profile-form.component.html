@@ -1,21 +1,11 @@
 <form
-  [formGroup]="profileForm"
+  [formGroup]="formGroup"
   (submit)="emitSubmit()"
   class="form-widget flex-column gap-32px"
 >
   <div>
-    <label for="name">Name</label>
+    <label for="name">Nome</label>
     <input formControlName="name" id="name" type="text" />
-  </div>
-
-  <div>
-    <label for="website">Website</label>
-    <input formControlName="website" id="website" type="url" />
-  </div>
-
-  <div>
-    <label for="website">Website</label>
-    <input formControlName="website" id="website" type="url" />
   </div>
 
   <div>
@@ -23,9 +13,13 @@
     <input formControlName="nick" id="nick" type="url" />
   </div>
 
-  <div class="flex-row gap-32px justify-end">
-    <button type="submit" class="button primary block" [disabled]="disabled">
-      {{ disabled ? "..." : "Update" }}
-    </button>
+  <div>
+    <label for="bio">Bio</label>
+    <input formControlName="bio" id="bio" type="text" />
+  </div>
+
+  <div>
+    <label for="website">Site</label>
+    <input formControlName="website" id="website" type="url" />
   </div>
 </form>

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Profile } from '@models/profile.models';
+import { EditProfileFormModel } from '@models/profile.models';
 import { SupabaseService } from '@services/supabase/supabase.service';
 import { from, map, of, switchMap } from 'rxjs';
 
@@ -26,7 +26,7 @@ export class UserService {
       if (user) {
         const profile = this.supabaseService.db
           .from('profile')
-          .select(`website, avatar, id, email, name, nick`)
+          .select(`website, avatar, id, email, name, nick, bio`)
           .eq('id', user?.id)
           .single()
           .then((res) => res.data);
@@ -37,7 +37,7 @@ export class UserService {
     }),
   );
 
-  updateProfile(profile: Profile) {
+  updateProfile(profile: EditProfileFormModel) {
     const update = {
       ...profile,
     };

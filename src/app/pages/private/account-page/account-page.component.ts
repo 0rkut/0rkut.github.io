@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommunityListComponent } from '@components/community/community-list/community-list.component';
 import { FriendListComponent } from '@components/friend/friend-list/friend-list.component';
@@ -28,11 +33,18 @@ export class AccountPageComponent {
 
   profile$ = this.userService.profile$;
 
-  profileForm = this.formBuilder.group({
-    name: '',
-    website: '',
-    avatar: '',
-    nick: '',
+  formGroup = this.formBuilder.group({
+    name: new FormControl({ value: '', disabled: false }, Validators.required),
+    website: new FormControl(
+      { value: '', disabled: false },
+      Validators.required,
+    ),
+    avatar: new FormControl(
+      { value: '', disabled: false },
+      Validators.required,
+    ),
+    nick: new FormControl({ value: '', disabled: false }, Validators.required),
+    bio: new FormControl({ value: '', disabled: false }, Validators.required),
   });
 
   constructor(
@@ -40,34 +52,36 @@ export class AccountPageComponent {
     private formBuilder: FormBuilder,
   ) {
     this.profile$.pipe(filter(Boolean), take(1)).subscribe(async (profile) => {
-      this.profileForm.controls['name'].setValue(profile.name);
-      this.profileForm.controls['website'].setValue(profile.website);
-      this.profileForm.controls['avatar'].setValue(profile.avatar);
-      this.profileForm.controls['nick'].setValue(profile.nick);
+      this.formGroup.controls['name'].setValue(profile.name);
+      this.formGroup.controls['website'].setValue(profile.website);
+      this.formGroup.controls['avatar'].setValue(profile.avatar);
+      this.formGroup.controls['nick'].setValue(profile.nick);
+      this.formGroup.controls['bio'].setValue(profile.bio);
     });
   }
 
   async updateProfile() {
     this.loading$.next(true);
+    this.formGroup.disable();
     this.userService.user$
       .pipe(filter(Boolean), take(1))
       .subscribe(async (user) => {
-        const profileForm = this.profileForm.value;
+        const formGroup = this.formGroup.value;
         const id = user.id;
-        const email = user.email || '';
-        const name = profileForm.name || '';
-        const website = profileForm.website || '';
-        const avatar = profileForm.avatar || '';
-        const nick = profileForm.nick || '';
+        const name = formGroup.name || '';
+        const website = formGroup.website || '';
+        const avatar = formGroup.avatar || '';
+        const nick = formGroup.nick || '';
+        const bio = formGroup.bio || '';
         await this.userService.updateProfile({
           id,
-          email: email,
           name,
           website,
           avatar,
           nick,
+          bio,
         });
-
+        this.formGroup.enable();
         this.loading$.next(false);
       });
   }

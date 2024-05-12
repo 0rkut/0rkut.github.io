@@ -9,20 +9,18 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-profile-form',
+  selector: 'app-community-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './profile-form.component.html',
-  styleUrls: ['./profile-form.component.scss'],
+  templateUrl: './community-form.component.html',
+  styleUrls: ['./community-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileFormComponent {
+export class CommunityFormComponent {
   @Input({ required: true }) formGroup!: FormGroup<{
     name: FormControl<string | null>;
-    website: FormControl<string | null>;
-    avatar: FormControl<string | null>;
-    nick: FormControl<string | null>;
-    bio: FormControl<string | null>;
+    image: FormControl<string | null>;
+    desc: FormControl<string | null>;
   }>;
 
   @Output() submit = new EventEmitter();

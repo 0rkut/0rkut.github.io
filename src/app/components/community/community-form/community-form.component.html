@@ -1,0 +1,20 @@
+<form
+  [formGroup]="formGroup"
+  (submit)="emitSubmit()"
+  class="form-widget flex-column gap-32px"
+>
+  <div>
+    <label for="name">Nome</label>
+    <input formControlName="name" id="name" type="text" />
+  </div>
+
+  <div>
+    <label for="image">Imagem</label>
+    <input formControlName="image" id="image" type="url" />
+  </div>
+
+  <div>
+    <label for="desc">Descrição</label>
+    <input formControlName="desc" id="desc" type="url" />
+  </div>
+</form>

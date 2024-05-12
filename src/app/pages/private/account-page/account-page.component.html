@@ -4,12 +4,21 @@
   </div>
 
   <div class="content-panel flex-grow">
-    <div class="panel-border">
+    <div class="panel-border flex-column gap-32px">
       <app-profile-form
-        [profileForm]="profileForm"
-        [disabled]="(loading$ | async)!"
+        [formGroup]="formGroup"
         (submit)="updateProfile()"
       ></app-profile-form>
+
+      <div class="flex-row gap-32px justify-end">
+        <button
+          type="submit"
+          class="button primary block"
+          [disabled]="loading$ | async"
+        >
+          {{ (loading$ | async) ? "..." : "Update" }}
+        </button>
+      </div>
     </div>
   </div>
 
