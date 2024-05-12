@@ -21,12 +21,18 @@ export class UserService {
     }),
   );
 
+  userId$ = this.user$.pipe(
+    map((user) => {
+      return user?.id || null;
+    }),
+  );
+
   profile$ = this.user$.pipe(
     switchMap((user) => {
       if (user) {
         const profile = this.supabaseService.db
           .from('profile')
-          .select(`website, avatar, id, email, name, nick, bio`)
+          .select(`website, avatar, id, email, name, nick, bio, creator`)
           .eq('id', user?.id)
           .single()
           .then((res) => res.data);

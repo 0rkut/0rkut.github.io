@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthPageComponent },
   { path: 'validate-auth', component: ValidateAuthPageComponent },
   { path: 'logout', component: LogoutPageComponent },
-  { path: 'community/:id', component: CommunityPageComponent },
+  { path: 'community/view/:id', component: CommunityPageComponent },
 ];
 
 @NgModule({

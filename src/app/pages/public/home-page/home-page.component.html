@@ -1,1 +1,13 @@
-<p>home-page works!</p>
+<div class="home-page flex-column gap-32px">
+  <h1>Bem vindo ao 0rkut.</h1>
+  <p>
+    Encontre velhos <b>AMIGOS</b>, participe das <b>COMUNIDADES</b>, homenageie
+    quem você <b>AMA</b>
+  </p>
+
+  <h2>Comunidades mais ativas ({{ totalCommunities$ | async }})</h2>
+
+  <app-community-list
+    (total)="totalCommunities$.next($event)"
+  ></app-community-list>
+</div>

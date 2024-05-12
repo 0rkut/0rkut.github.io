@@ -11,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: 'account', component: AccountPageComponent },
       { path: 'community/add', component: CommunityAddPageComponent },
+      { path: 'community/edit/:id', component: CommunityAddPageComponent },
     ],
   },
 ];

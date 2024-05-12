@@ -12,7 +12,7 @@ export class CommunityService {
     return this.supabaseService.db.from('community').insert(data);
   }
 
-  async comminities() {
+  async communities() {
     return (await this.supabaseService.db.from('community').select()).data;
   }
 }
