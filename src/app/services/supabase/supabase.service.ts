@@ -60,10 +60,12 @@ export class SupabaseService {
   }
 
   signInWithGoogle(redirectUrl?: string) {
+    const redirectTo = `${window.location.origin}/validate-auth?redirectUrl=${redirectUrl}`;
+    alert(redirectTo);
     this.db.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/validate-auth?redirectUrl=${redirectUrl}`,
+        redirectTo,
       },
     });
   }
