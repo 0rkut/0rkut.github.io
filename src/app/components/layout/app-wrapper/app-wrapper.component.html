@@ -1,7 +1,7 @@
 <div class="app-wrapper flex-column">
   <div class="header">
     <div class="width-control-container flex-row gap-32px align-center">
-      <h1>0rkut</h1>
+      <h1><a [routerLink]="'/'">0rkut</a></h1>
 
       <a [routerLink]="'/auth'">login</a>
       <a [routerLink]="'/logout'">logout</a>
@@ -19,7 +19,6 @@
       </div>
       <div class="content-panel flex-grow">
         <div class="panel-border">
-          <h1>Welcome, Einstain</h1>
           <router-outlet></router-outlet>
         </div>
       </div>
