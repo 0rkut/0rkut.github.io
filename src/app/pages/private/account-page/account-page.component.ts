@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '@services/user/user.service';
 import { ReplaySubject, filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-account-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './account-page.component.html',
   styleUrls: ['./account-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,35 +17,39 @@ export class AccountPageComponent {
 
   profile$ = this.userService.profile$;
 
-  username = '';
+  updateProfileForm = this.formBuilder.group({
+    name: '',
+    website: '',
+    avatar: '',
+  });
 
-  website = '';
-
-  avatar = '';
-
-  name = '';
-
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    private formBuilder: FormBuilder,
+  ) {
+    this.profile$.pipe(filter(Boolean), take(1)).subscribe(async (profile) => {
+      this.updateProfileForm.controls['name'].setValue(profile.name);
+      this.updateProfileForm.controls['website'].setValue(profile.website);
+      this.updateProfileForm.controls['avatar'].setValue(profile.avatar);
+    });
+  }
 
   async updateProfile() {
     this.userService.user$
       .pipe(filter(Boolean), take(1))
       .subscribe(async (user) => {
-        const {
-          id,
-          email,
-          user_metadata: { name },
-        } = user;
-        this.loading$.next(true);
-        const username = this.username;
-        const website = this.website;
-        const avatar = this.avatar;
+        const profileForm = this.updateProfileForm.value;
+        const id = user.id;
+        const email = user.email || '';
+        const name = profileForm.name || '';
+        const website = profileForm.website || '';
+        const avatar = profileForm.avatar || '';
         await this.userService.updateProfile({
           id,
+          email: email,
           name,
           website,
           avatar,
-          email: email || '',
         });
 
         this.loading$.next(false);

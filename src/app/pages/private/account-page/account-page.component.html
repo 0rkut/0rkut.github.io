@@ -1,17 +1,19 @@
 <form
   *ngIf="profile$ | async as profile"
-  (submit)="updateProfile()"
+  [formGroup]="updateProfileForm"
+  (ngSubmit)="updateProfile()"
   class="form-widget flex-column gap-32px"
 >
-  <h1>{{ profile?.name }}</h1>
+  <h1>{{ profile.name }}</h1>
 
   <div>
     <label for="name">Name</label>
-    <input [(ngModel)]="name" [value]="profile?.name" id="name" type="text" />
+    <input formControlName="name" id="name" type="text" />
   </div>
+
   <div>
     <label for="website">Website</label>
-    <input [(ngModel)]="website" id="website" type="url" />
+    <input formControlName="website" id="website" type="url" />
   </div>
 
   <div class="flex-row gap-32px justify-end">
