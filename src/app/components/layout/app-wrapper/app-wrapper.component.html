@@ -9,12 +9,32 @@
       <a [routerLink]="'/community/add'">+ community</a>
     </div>
   </div>
+
   <div class="content-container flex-grow overflow-auto">
-    <div class="width-control-container">
-      <router-outlet></router-outlet>
+    <div class="width-control-container flex-row gap-8px h-100">
+      <div
+        class="left-panel panel-border flex-column gap-8px overflow-auto h-100 custom-scrollbar"
+      >
+        <ng-container *ngIf="profile$ | async as profile">
+          <img [src]="profile.avatar" alt="" />
+          <div>{{ profile.name }}</div>
+          <a [routerLink]="'/auth'">login</a>
+          <a [routerLink]="'/logout'">logout</a>
+          <a [routerLink]="'/account'">account</a>
+          <a [routerLink]="'/community/add'">+ community</a>
+        </ng-container>
+      </div>
+
+      <div class="content-panel flex-grow h-100">
+        <div
+          class="panel-border flex-column gap-32px h-100 overflow-auto custom-scrollbar"
+        >
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="header">
+  <div class="footer">
     <div
       class="width-control-container flex-row gap-32px align-center justify-center"
     >

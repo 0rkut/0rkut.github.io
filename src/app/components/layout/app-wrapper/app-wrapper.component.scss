@@ -18,6 +18,11 @@
   }
 }
 
+.footer {
+  padding: 0px 4px;
+  background-color: #719dd1;
+}
+
 .content-container {
   background-color: #d4e8fc;
   padding: 16px;
@@ -27,4 +32,25 @@
   width: 100%;
   max-width: 1240px;
   margin: auto;
+}
+
+.panel-border {
+  border-radius: 6px;
+  background-color: white;
+  padding: 8px;
+}
+
+.left-panel {
+  width: 256px;
+
+  img {
+    object-fit: cover;
+    max-height: 256px;
+    width: 100%;
+    display: block;
+  }
+}
+
+.right-panel {
+  width: 400px;
 }
